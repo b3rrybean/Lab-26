@@ -20,6 +20,22 @@ long long timeOperation(Func f) {
 }
 
 int main() {
+const int NUM_RUNS = 3;
+long long times[NUM_RUNS][4][3] = {0};
+
+for (int run = 0; run < NUM_RUNS; ++run) {
+    cout << "Run #" << run + 1 << endl;
+
+    vector<string> v;
+    list<string> l;
+    set<string> s;
+
+    long long timeVectorRead = timeOperation([&]() {
+        for (auto &str : allCodes) v.push-back(str);
+    });
+    
+}
+
 // Read codes from file into a vector
 vector<string> allCodes;
 ifstream file("codes.txt");
