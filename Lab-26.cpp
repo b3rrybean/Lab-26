@@ -20,8 +20,11 @@ long long timeOperation(Func f) {
 }
 
 int main() {
-const int NUM_RUNS = 3;
-long long times[NUM_RUNS][4][3] = {0};
+const int NUM_RUNS = 15;
+const int NUM_OPERATIONS = 4;
+const int NUM_CONTAINERS = 3;
+
+long long times[NUM_RUNS][NUM_OPERATIONS][NUM_CONTAINERS] = {0};
 
 for (int run = 0; run < NUM_RUNS; ++run) {
     cout << "Run #" << run + 1 << endl;
@@ -31,9 +34,10 @@ for (int run = 0; run < NUM_RUNS; ++run) {
     set<string> s;
 
     long long timeVectorRead = timeOperation([&]() {
-        for (auto &str : allCodes) v.push-back(str);
+        for (auto &str : allCodes) v.push_back(str);
     });
-    
+    times[run][0][0] = timeVectorRead;
+    cout << "Vector read time: " << timeVectorRead << endl;
 }
 
 // Read codes from file into a vector
