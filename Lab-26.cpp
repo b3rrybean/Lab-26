@@ -30,10 +30,7 @@ int main() {
     vector<string> allCodes;
     ifstream file("codes.txt");
     string code;
-
-    while (file >> code) {
-    allCodes.push_back(code);
-    }
+    while (file >> code) allCodes.push_back(code);
     file.close();
 
     // Operations names for output
@@ -90,7 +87,7 @@ int main() {
     // Race 4: Deleting
     long long timeVectorDelete = timeOperation([&]() {
         v.erase(v.begin() + v.size() / 2);
-}   );
+    });
 
     long long timeListDelete = timeOperation([&]() {
         auto listDel = l.begin();
@@ -104,6 +101,24 @@ int main() {
         s.erase(it);
     });
 
+    // ---- Store results in 3D array ----
+    results[run][0][0] = timeVectorRead;
+    results[run][0][1] = timeListRead;
+    results[run][0][2] = timeSetRead;
+
+    results[run][1][0] = timeVectorSort;
+    results[run][1][1] = timeListSort;
+    results[run][1][2] = timeSetSort;
+
+    results[run][2][0] = timeVectorInsert;
+    results[run][2][1] = timeListInsert;
+    results[run][2][2] = timeSetInsert;
+
+    results[run][3][0] = timeVectorDelete;
+    results[run][3][1] = timeListDelete;
+    results[run][3][2] = timeSetDelete;
+}
+
     // Comput averages (reused and modified dummy sample from milestone 2)
     long long totals[NUM_OPERATIONS][NUM_CONTAINERS] = {0};
 
@@ -113,7 +128,6 @@ int main() {
             for (int run = 0; run < NUM_RUNS; run++) sum += results[run][op][cont];
             totals[op][cont] = sum / NUM_RUNS;
         }
-        cout << endl;
     }
 
     // Output averages
@@ -125,8 +139,9 @@ int main() {
 
     for (int op = 0; op < NUM_OPERATIONS; op++) {
         cout << setw(12) << operations[op];
-        for (int cont = 0; cont < NUM_CONTAINERS; cont++)
+        for (int cont = 0; cont < NUM_CONTAINERS; cont++) {
             cout << setw(10) << totals[op][cont];
+        }
         cout << endl;
     }
 
