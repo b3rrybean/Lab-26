@@ -24,20 +24,34 @@ const int NUM_RUNS = 15;
 const int NUM_OPERATIONS = 4;
 const int NUM_CONTAINERS = 3;
 
-long long times[NUM_RUNS][NUM_OPERATIONS][NUM_CONTAINERS] = {0};
+long long results[NUM_RUNS][NUM_OPERATIONS][NUM_CONTAINERS] = {0};
 
-for (int run = 0; run < NUM_RUNS; ++run) {
+for (int run = 0; run < NUM_RUNS; run++) {
     cout << "Run #" << run + 1 << endl;
 
-    vector<string> v;
-    list<string> l;
-    set<string> s;
+    // dummy values to test
+    for (int op = 0; op < NUM_OPERATIONS; op++) {
+        for (int cont = 0; cont < NUM_CONTAINERS; cont++) {
+            results[run][op][cont] = (run + 1) * 100 + op *10 + cont;
+        }
+    }
+}
 
-    long long timeVectorRead = timeOperation([&]() {
-        for (auto &str : allCodes) v.push_back(str);
-    });
-    times[run][0][0] = timeVectorRead;
-    cout << "Vector read time: " << timeVectorRead << endl;
+// display results sample
+cout << "\nSample output:\n";
+cout << setw(12) << "Operation"
+     << setw(10) << "Vector"
+     << setw(10) << "List"
+     << setw(10) << "Set" << endl;
+
+ string operations[] = {"Read", "Sort", "Insert", "Delete"};
+
+for (int op = 0; op < NUM_OPERATIONS; op++) {
+    cout << setw(12) << operations[op];
+    for (int cont = 0; cont < NUM_CONTAINERS; cont++) {
+         cout << setw(10) << results[0][op][cont];
+    }
+    cout << endl;
 }
 
 // Read codes from file into a vector
