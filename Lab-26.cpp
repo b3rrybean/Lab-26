@@ -21,10 +21,13 @@ long long timeOperation(Func f) {
 
 int main() {
     const int NUM_RUNS = 15;
-    const int NUM_OPERATIONS = 4;
-    const int NUM_CONTAINERS = 3;
+    const int NUM_OPERATIONS = 4;   // Read, Sort, Insert, Delete
+    const int NUM_CONTAINERS = 3;   // Vector, List, Set
 
     long long results[NUM_RUNS][NUM_OPERATIONS][NUM_CONTAINERS] = {0};
+    // results[run][operation][container]
+    // operation: 0=Read, 1=Sort, 2=Insert, 3=Delete
+    // container: 0=Vector, 1=List, 2=Set
 
     // Read codes from file into a vector
     vector<string> allCodes;
@@ -119,7 +122,7 @@ int main() {
     results[run][3][2] = timeSetDelete;
 }
 
-    // Comput averages (reused and modified dummy sample from milestone 2)
+    // Compute averages
     long long totals[NUM_OPERATIONS][NUM_CONTAINERS] = {0};
 
     for (int op = 0; op < NUM_OPERATIONS; op++) {
@@ -148,10 +151,3 @@ int main() {
     return 0;
 
 }
-
-/* syntax examples:
-auto start = high_resolution_clock::now()
-auto end = high_resolution_clock::now()
-auto duration = duration_cast<milliseconds>(end - start)
-duration.count() references elapsed milliseconds
-*/
