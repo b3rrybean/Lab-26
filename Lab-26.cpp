@@ -26,34 +26,6 @@ const int NUM_CONTAINERS = 3;
 
 long long results[NUM_RUNS][NUM_OPERATIONS][NUM_CONTAINERS] = {0};
 
-for (int run = 0; run < NUM_RUNS; run++) {
-    cout << "Run #" << run + 1 << endl;
-
-    // dummy values to test
-    for (int op = 0; op < NUM_OPERATIONS; op++) {
-        for (int cont = 0; cont < NUM_CONTAINERS; cont++) {
-            results[run][op][cont] = (run + 1) * 100 + op *10 + cont;
-        }
-    }
-}
-
-// display results sample
-cout << "\nSample output:\n";
-cout << setw(12) << "Operation"
-     << setw(10) << "Vector"
-     << setw(10) << "List"
-     << setw(10) << "Set" << endl;
-
- string operations[] = {"Read", "Sort", "Insert", "Delete"};
-
-for (int op = 0; op < NUM_OPERATIONS; op++) {
-    cout << setw(12) << operations[op];
-    for (int cont = 0; cont < NUM_CONTAINERS; cont++) {
-         cout << setw(10) << results[0][op][cont];
-    }
-    cout << endl;
-}
-
 // Read codes from file into a vector
 vector<string> allCodes;
 ifstream file("codes.txt");
@@ -63,6 +35,13 @@ while (file >> code) {
     allCodes.push_back(code);
 }
 file.close();
+
+// Operations names for output
+string operations[] = {"Read", "Sort", "Insert", "Delete"};
+
+// Loop through all simulation runs
+for (int run = 0; run < NUM_RUNS; run++) {
+    cout << "Run #" << run + 1 << endl;
 
 // Containers for each race
 vector<string> v;
@@ -124,6 +103,18 @@ long long timeSetDelete = timeOperation([&]() {
     advance(it, s.size() / 2);
     s.erase(it);
 });
+
+// Comput averages (reused and modified dummy sample from milestone 2)
+long long totals[NUM_OPERATIONS][NUM_CONTAINERS] = {0};
+
+for (int op = 0; op < NUM_OPERATIONS; op++) {
+    for (int cont = 0; cont < NUM_CONTAINERS; cont++) {
+        long long sum = 0;
+        for (int run = 0; run < NUM_RUNS; run++) sum = resilts[run][op][cont];
+        totals[op][cont] = sum / NUM_RUNS;
+    }
+    cout << endl;
+}
 
 // Display results
  cout << setw(12) << "Operation"
